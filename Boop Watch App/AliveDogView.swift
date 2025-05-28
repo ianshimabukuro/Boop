@@ -10,6 +10,7 @@ import AVFoundation
 struct AliveDogView: View{
     @State private var isAnimating: Bool = false
     @State private var audioPlayer : AVAudioPlayer?
+    @Binding var tapCount : Int
     var body : some View{
         Image("AliveDog")
             .resizable()
@@ -17,6 +18,7 @@ struct AliveDogView: View{
             .scaleEffect(isAnimating ? 1.2 : 1.0)
             .onTapGesture{
                             playSound()
+                            tapCount += 1
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
                                         isAnimating = true
                                     }
@@ -43,5 +45,5 @@ struct AliveDogView: View{
 }
 
 #Preview{
-    AliveDogView()
+    AliveDogView(tapCount: .constant(0))
 }
